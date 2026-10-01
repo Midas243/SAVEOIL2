@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save Oil - Savons Artisanaux Écoresponsables</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        olive: {
+                            50: '#f7f9f2',
+                            100: '#ebf1e1',
+                            200: '#d7e3c5',
+                            500: '#6b8e23',
+                            600: '#58771c',
+                            700: '#435c15',
+                            800: '#2f420e',
+                            900: '#1f2c09',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+
+<body class="min-h-screen bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-100 font-sans transition-colors duration-300 flex flex-col relative"
+      style="background-image: url('background.jpg'); background-size: cover; background-repeat: repeat; background-attachment: fixed;">
+
+    <!-- Superposition de masque pour garantir le contraste et la lisibilité du mode clair / sombre -->
+    <div class="fixed inset-0 -z-10 bg-slate-100/80 dark:bg-slate-950/90 backdrop-blur-[1px] transition-colors duration-300 pointer-events-none"></div>
+
+    <!-- HEADER -->
+    <header class="sticky top-0 z-50 w-full backdrop-blur-md bg-white/85 dark:bg-slate-900/85 border-b border-slate-200/80 dark:border-slate-800/80 transition-colors duration-300 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- LOGO (Haut à gauche en mobile & desktop) -->
+            <a href="#" class="flex items-center gap-3 group focus:outline-none">
+                <img src="logo-removebg-preview.png" 
+                     alt="Save Oil" 
+                     class="h-20 w-auto max-h-24 sm:h-20 md:h-24 object-contain transition-transform duration-300 group-hover:scale-105"
+                     onerror="this.onerror=null; this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');">
+                
+                <!-- Fallback visuel si l'image locale est absente -->
+                <div class="hidden flex items-center gap-2">
+                    <span class="w-12 h-12 rounded-full bg-olive-600 flex items-center justify-center text-white font-serif font-bold text-xl shadow">S</span>
+                    <span class="font-serif font-bold text-xl text-slate-900 dark:text-white">Save <span class="text-olive-600 dark:text-olive-400">Oil</span></span>
+                </div>
+            </a>
+
+            <!-- NAVIGATION DESKTOP -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#produits" class="text-xs uppercase tracking-[0.18em] font-semibold text-slate-700 dark:text-slate-300 hover:text-olive-600 dark:hover:text-olive-400 transition-colors">
+                    Découvrir nos produits
+                </a>
+                <a href="#apropos" class="text-xs uppercase tracking-[0.18em] font-semibold text-slate-700 dark:text-slate-300 hover:text-olive-600 dark:hover:text-olive-400 transition-colors">
+                    En savoir plus
+                </a>
+                <a href="#contact" class="text-xs uppercase tracking-[0.18em] font-semibold text-slate-700 dark:text-slate-300 hover:text-olive-600 dark:hover:text-olive-400 transition-colors">
+                    Contact
+                </a>
+                
+                <!-- BOUTON THÈME CLAIR / SOMBRE (Desktop) -->
+                <button id="theme-toggle-desktop" 
+                        type="button" 
+                        aria-label="Changer le thème"
+                        class="p-2.5 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-olive-500 bg-white/50 dark:bg-slate-800/50">
+                    <!-- Icone Lune (Apparaît en mode Clair) -->
+                    <svg id="theme-toggle-dark-icon-desktop" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                    </svg>
+                    <!-- Icone Soleil (Apparaît en mode Sombre) -->
+                    <svg id="theme-toggle-light-icon-desktop" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 100 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </nav>
+
+            <!-- BOUTONS MOBILE (Thème + Menu Burger) -->
+            <div class="flex items-center gap-2 md:hidden">
+                <!-- Bouton Thème Mobile -->
+                <button id="theme-toggle-mobile" 
+                        type="button" 
+                        aria-label="Changer le thème"
+                        class="p-2.5 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-800/50">
+                    <svg id="theme-toggle-dark-icon-mobile" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                    </svg>
+                    <svg id="theme-toggle-light-icon-mobile" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 100 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+
+                <!-- Bouton Menu Burger Mobile -->
+                <button id="burger-btn" 
+                        type="button" 
+                        aria-expanded="false"
+                        aria-controls="mobile-menu"
+                        aria-label="Menu principal"
+                        class="p-2.5 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-800/50">
+                    <svg id="burger-icon" class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                    <svg id="close-icon" class="w-6 h-6 hidden transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- MENU MOBILE DÉROULANT -->
+        <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg px-6 pt-4 pb-6 transition-all duration-300">
+            <nav class="flex flex-col gap-4 text-center">
+                <a href="#produits" class="mobile-nav-link py-2.5 text-sm uppercase tracking-[0.15em] font-semibold text-slate-800 dark:text-slate-200 hover:text-olive-600 dark:hover:text-olive-400 transition-colors border-b border-slate-100 dark:border-slate-800/50">
+                    Découvrir nos produits
+                </a>
+                <a href="#apropos" class="mobile-nav-link py-2.5 text-sm uppercase tracking-[0.15em] font-semibold text-slate-800 dark:text-slate-200 hover:text-olive-600 dark:hover:text-olive-400 transition-colors border-b border-slate-100 dark:border-slate-800/50">
+                    En savoir plus
+                </a>
+                <a href="#contact" class="mobile-nav-link py-2.5 text-sm uppercase tracking-[0.15em] font-semibold text-slate-800 dark:text-slate-200 hover:text-olive-600 dark:hover:text-olive-400 transition-colors">
+                    Contact
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow w-full">
+        
+        <!-- HERO SECTION -->
+        <section class="mx-auto flex w-full max-w-4xl flex-col items-center gap-8 px-5 py-12 text-center sm:gap-10 sm:px-8 md:gap-12 md:py-20">
+            
+            <span class="inline-block px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest text-olive-800 bg-olive-100/90 dark:bg-olive-900/60 dark:text-olive-300 shadow-sm backdrop-blur-sm">
+                100% Éco-responsable 
+            </span>
+
+            <h1 class="max-w-2xl font-serif text-2xl sm:text-3xl md:text-5xl font-medium leading-tight tracking-tight text-slate-900 dark:text-white">
+                Découvrez le savon qui vous donnera envie de tout laver !
+            </h1>
+
+            <!-- Photo principale -->
+            <div class="relative w-full max-w-md sm:max-w-lg md:max-w-2xl group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-olive-500 to-emerald-600 rounded-xl blur opacity-25 group-hover:opacity-40 transition duration-500"></div>
+                
+                <div class="relative bg-white/90 dark:bg-slate-900/90 rounded-lg overflow-hidden shadow-xl border border-slate-200/80 dark:border-slate-800 backdrop-blur-sm">
+                    <img src="oil1.png" 
+                         alt="Pile de savons artisanaux Save Oil"
+                         class="aspect-[4/3] w-full object-cover shadow-sm md:aspect-[16/10] transition-transform duration-700 group-hover:scale-102"
+                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1607006344380-b6775a0824a7?auto=format&fit=crop&w=1200&q=80';">
+                </div>
+            </div>
+
+            <p class="max-w-xl text-sm sm:text-base text-slate-700 dark:text-slate-300 font-normal leading-relaxed">
+                Puissant contre les graisses, doux pour les mains. Formulé à base d’huile, il nettoie efficacement tout en respectant l’environnement.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-md">
+                <a href="#produits" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-olive-600 hover:bg-olive-700 text-white text-xs uppercase tracking-[0.15em] font-semibold transition-all shadow-md hover:shadow-lg focus:ring-2 focus:ring-olive-500 text-center">
+                    Découvrir nos produits
+                </a>
+                <a href="#apropos" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white/80 dark:bg-slate-800/80 hover:bg-white dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs uppercase tracking-[0.15em] font-semibold transition-all text-center border border-slate-200 dark:border-slate-700 shadow-sm">
+                    En savoir plus
+                </a>
+            </div>
+        </section>
+
+        <!-- SECTION PRODUITS (#produits) -->
+        <section id="produits" class="py-16 bg-white/60 dark:bg-slate-900/50 backdrop-blur-sm border-y border-slate-200/80 dark:border-slate-800/80">
+            <div class="max-w-6xl mx-auto px-5 sm:px-8">
+                <div class="text-center max-w-xl mx-auto mb-12">
+                    <h2 class="font-serif text-2xl sm:text-3xl text-slate-900 dark:text-white mb-3">Nos Créations Artisanales</h2>
+                    <div class="w-16 h-0.5 bg-olive-500 mx-auto mb-4"></div>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">Des formulations naturelles, biodégradables et fabriquées avec passion.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Card 1 -->
+                    <div class="bg-white/90 dark:bg-slate-900/90 rounded-xl overflow-hidden shadow-sm hover:shadow-md border border-slate-200 dark:border-slate-800 transition-all flex flex-col backdrop-blur-sm">
+                        <div class="h-48 overflow-hidden relative bg-slate-200 dark:bg-slate-800">
+                            <img src="SAVONNORMAL.jpeg" alt="Savonoil de base" class="w-full h-full object-cover">
+                            <span class="absolute top-3 right-3 bg-white/90 dark:bg-slate-900/90 text-olive-700 dark:text-olive-400 text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">Savon menager</span>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow text-left">
+                            <h3 class="font-serif font-bold text-lg text-slate-900 dark:text-white mb-2">Savon Naturelle</h3>
+                            <p class="text-xs text-slate-600 dark:text-slate-400 mb-4 flex-grow">Ultra-dégraissant pour la vaisselle et le nettoyage écologique de votre maison.<br>N.B: Ne pas se laver avec ce savon</p>
+                            <div class="flex items-center justify-between mt-auto pt-4 border-t border-slate-100 dark:border-slate-800">
+                                <span class="font-bold text-slate-900 dark:text-white">700CDF/la brique</span>
+                                <a href="https://wa.me/qr/6HQ7QLIOOBVCK1?s=r" class="text-xs font-bold text-olive-600 dark:text-olive-400 uppercase tracking-wider hover:underline">Commander →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="bg-white/90 dark:bg-slate-900/90 rounded-xl overflow-hidden shadow-sm hover:shadow-md border border-slate-200 dark:border-slate-800 transition-all flex flex-col backdrop-blur-sm">
+                        <div class="h-48 overflow-hidden relative bg-slate-200 dark:bg-slate-800">
+                            <img src="SAVONCURCUMA.jpeg" alt="Savon au curcuma" class="w-full h-full object-cover">
+                            <span class="absolute top-3 right-3 bg-white/90 dark:bg-slate-900/90 text-amber-700 dark:text-amber-400 text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">Savon au Curcuma</span>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow text-left">
+                            <h3 class="font-serif font-bold text-lg text-slate-900 dark:text-white mb-2">Éclat & Pureté Naturelle</h3>
+                            <p class="text-xs text-slate-600 dark:text-slate-400 mb-4 flex-grow">Plongez dans une expérience de propreté unique avec notre savon au curcuma. Reconnu pour ses vertus dégraissantes et antibactériennes, il aide à éliminer efficacement les impuretés, les graisses et les résidus tenaces, tout en laissant les surfaces éclatantes et saines. </p>
+                            <div class="flex items-center justify-between mt-auto pt-4 border-t border-slate-100 dark:border-slate-800">
+                                <span class="font-bold text-slate-900 dark:text-white">700CDF/la brique</span>
+                                <a href="https://wa.me/qr/6HQ7QLIOOBVCK1?s=r" class="text-xs font-bold text-olive-600 dark:text-olive-400 uppercase tracking-wider hover:underline">Commander →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="bg-white/90 dark:bg-slate-900/90 rounded-xl overflow-hidden shadow-sm hover:shadow-md border border-slate-200 dark:border-slate-800 transition-all flex flex-col sm:col-span-2 lg:col-span-1 backdrop-blur-sm">
+                        <div class="h-48 overflow-hidden relative bg-slate-200 dark:bg-slate-800">
+                            <img src="SAVONCLOUDEGIROFFE.png" alt="d'huile de clou de girofle et feuille de l'hauriet" class="w-full h-full object-cover">
+                            <span class="absolute top-3 right-3 bg-white/90 dark:bg-slate-900/90 text-emerald-700 dark:text-emerald-400 text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">clou de girofle et feuille de l'hauriet</span>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow text-left">
+                            <h3 class="font-serif font-bold text-lg text-slate-900 dark:text-white mb-2"> Force et Pureté Naturelle </h3>
+                            <p class="text-xs text-slate-600 dark:text-slate-400 mb-4 flex-grow">Un savon artisanal pensé pour l’entretien quotidien : le clou de girofle assainit et désinfecte, tandis que les feuilles d’hauriet apportent une action purifiante et dégraissante. Idéal pour la vaisselle, les surfaces et les mains après le ménage.</p>
+                            <div class="flex items-center justify-between mt-auto pt-4 border-t border-slate-100 dark:border-slate-800">
+                                <span class="font-bold text-slate-900 dark:text-white">700CDF/la brique</span>
+                                <a href="https://wa.me/qr/6HQ7QLIOOBVCK1?s=r" class="text-xs font-bold text-olive-600 dark:text-olive-400 uppercase tracking-wider hover:underline">Commander →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION À PROPOS (#apropos) -->
+        <section id="apropos" class="py-16 max-w-4xl mx-auto px-5 sm:px-8 text-center">
+            <h2 class="font-serif text-2xl sm:text-3xl text-slate-900 dark:text-white mb-4">Pourquoi Save Oil ?</h2>
+            <div class="w-16 h-0.5 bg-olive-500 mx-auto mb-8"></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+                <div class="p-6 rounded-xl bg-white/90 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 shadow-sm backdrop-blur-sm">
+                    <div class="w-10 h-10 rounded-full bg-olive-100 dark:bg-olive-900/50 flex items-center justify-center text-olive-600 dark:text-olive-400 mb-4 font-bold text-lg">🌱</div>
+                    <h3 class="font-bold text-slate-900 dark:text-white mb-2 text-sm">Économie Circulaire</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">Nous collectons les ressources utilisées pour leur offrir une deuxième vie zéro déchet.</p>
+                </div>
+
+                <div class="p-6 rounded-xl bg-white/90 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 shadow-sm backdrop-blur-sm">
+                    <div class="w-10 h-10 rounded-full bg-olive-100 dark:bg-olive-900/50 flex items-center justify-center text-olive-600 dark:text-olive-400 mb-4 font-bold text-lg">🧼</div>
+                    <h3 class="font-bold text-slate-900 dark:text-white mb-2 text-sm">Ultra-dégraissant</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed"> Ultra-dégraissant pour la vaisselle et le nettoyage écologique de votre maison.</p>
+                </div>
+
+                <div class="p-6 rounded-xl bg-white/90 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 shadow-sm backdrop-blur-sm">
+                    <div class="w-10 h-10 rounded-full bg-olive-100 dark:bg-olive-900/50 flex items-center justify-center text-olive-600 dark:text-olive-400 mb-4 font-bold text-lg">♻️</div>
+                    <h3 class="font-bold text-slate-900 dark:text-white mb-2 text-sm">Zéro Déchet Plastique</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">Emballages minimalistes, recyclables et biodégradables pour réduire au maximum l'impact environnemental.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION CONTACT (#contact) -->
+        <section id="contact" class="py-16 bg-white/60 dark:bg-slate-900/50 backdrop-blur-sm border-t border-slate-200/80 dark:border-slate-800/80">
+            <div class="max-w-xl mx-auto px-5 sm:px-8 text-center">
+                <h2 class="font-serif text-2xl sm:text-3xl text-slate-900 dark:text-white mb-3">Contactez-nous</h2>
+                <div class="w-16 h-0.5 bg-olive-500 mx-auto mb-6"></div>
+                <p class="text-sm text-slate-600 dark:text-slate-400 mb-8">Posez-nous vos questions ou passez commande directement.</p>
+
+                
+    
+
+            <div class="flex flex-col items-center gap-5">
+
+                <div class="flex items-center gap-3">
+
+                    <!-- Téléphone -->
+
+                    <a href="tel:+243841002020" aria-label="Téléphone" class="transition hover:opacity-60">
+
+                        <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+
+                            <circle cx="12" cy="12" r="10"/>
+
+                            <path d="M8.5 7.5c-.6.6-1 1.4-.8 2.3.5 2.4 2.5 4.9 5 6.2.9.5 1.8.3 2.4-.3l.6-.6c.3-.3.3-.8 0-1.1l-1.3-1.1c-.3-.3-.8-.2-1.1.1l-.3.3c-1-.5-2-1.5-2.5-2.5l.3-.3c.3-.3.4-.8.1-1.1L9.6 7.5c-.3-.3-.8-.3-1.1 0z"/>
+
+                        </svg>
+
+                    </a>
+
+                    <!-- Instagram -->
+
+                    <a href="https://www.instagram.com/ms_dakari?stkn=YnI0YXZtbWc0NA==" aria-label="Instagram" class="transition hover:opacity-60">
+
+                        <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+
+                            <rect x="2.5" y="2.5" width="19" height="19" rx="5"/>
+
+                            <circle cx="12" cy="12" r="4.2"/>
+
+                            <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor"/>
+
+                        </svg>
+
+                    </a>
+
+                    <!-- WhatsApp -->
+
+                    <a href="https://wa.me/qr/6HQ7QLIOOBVCK1?s=r" aria-label="WhatsApp" class="transition hover:opacity-60">
+
+                        <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+
+                            <path d="M3 21l1.6-4.7A9 9 0 1 1 8 19.6L3 21z"/>
+
+                            <path d="M9 8.5c-.4.5-.5 1.2-.2 2 .8 1.9 2.3 3.4 4.2 4.2.8.3 1.5.2 2-.2l.5-.5c.2-.2.2-.6 0-.8l-1.2-.9c-.2-.2-.6-.1-.8.1l-.3.3c-.8-.3-1.6-1.1-1.9-1.9l.3-.3c.2-.2.3-.6.1-.8L9.8 8.4c-.2-.2-.6-.2-.8.1z"/>
+
+                        </svg>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+<!--footer class="mt-auto border-t border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm py-10 transition-colors duration-300">
+        <div class="max-w-6xl mx-auto px-5 sm:px-8 flex flex-col items-center gap-6 md:flex-row md:justify-between">
+            
+            <a href="#contact" class="border-b border-slate-400 dark:border-slate-600 pb-0.5 text-xs uppercase tracking-[0.15em] font-bold text-slate-800 dark:text-slate-200 hover:text-olive-600 dark:hover:text-olive-400 transition-colors">
+                Contact
+            </a>
+
+            <p class="text-xs text-slate-500 dark:text-slate-400">
+                &copy; Save Oil. Tous droits réservés.
+            </p>
+
+            
+            <div class="flex items-center gap-4 text-slate-700 dark:text-slate-300">
+                
+                <a href="tel:+000000000" aria-label="Téléphone" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                    <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M8.5 7.5c-.6.6-1 1.4-.8 2.3.5 2.4 2.5 4.9 5 6.2.9.5 1.8.3 2.4-.3l.6-.6c.3-.3.3-.8 0-1.1l-1.3-1.1c-.3-.3-.8-.2-1.1.1l-.3.3c-1-.5-2-1.5-2.5-2.5l.3-.3c.3-.3.4-.8.1-1.1L9.6 7.5c-.3-.3-.8-.3-1.1 0z"/>
+                    </svg>
+                </a>
+                
+                
+                <a href="#" aria-label="Instagram" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                    <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2.5" y="2.5" width="19" height="19" rx="5"/>
+                        <circle cx="12" cy="12" r="4.2"/>
+                        <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor"/>
+                    </svg>
+                </a>
+
+                
+                <a href="https://wa.me/qr/6HQ7QLIOOBVCK1?s=r" aria-label="WhatsApp" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                    <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 21l1.6-4.7A9 9 0 1 1 8 19.6L3 21z"/>
+                        <path d="M9 8.5c-.4.5-.5 1.2-.2 2 .8 1.9 2.3 3.4 4.2 4.2.8.3 1.5.2 2-.2l.5-.5c.2-.2.2-.6 0-.8l-1.2-.9c-.2-.2-.6-.1-.8.1l-.3.3c-.8-.3-1.6-1.1-1.9-1.9l.3-.3c.2-.2.3-.6.1-.8L9.8 8.4c-.2-.2-.6-.2-.8.1z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>-->
+    
+
+    <!-- JAVASCRIPT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. GESTION DU THÈME CLAIR / SOMBRE
+            const themeToggleDesktop = document.getElementById('theme-toggle-desktop');
+            const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+            
+            const darkIconDesktop = document.getElementById('theme-toggle-dark-icon-desktop');
+            const lightIconDesktop = document.getElementById('theme-toggle-light-icon-desktop');
+            const darkIconMobile = document.getElementById('theme-toggle-dark-icon-mobile');
+            const lightIconMobile = document.getElementById('theme-toggle-light-icon-mobile');
+
+            function updateThemeIcons(isDark) {
+                if (isDark) {
+                    darkIconDesktop?.classList.add('hidden');
+                    lightIconDesktop?.classList.remove('hidden');
+                    darkIconMobile?.classList.add('hidden');
+                    lightIconMobile?.classList.remove('hidden');
+                } else {
+                    darkIconDesktop?.classList.remove('hidden');
+                    lightIconDesktop?.classList.add('hidden');
+                    darkIconMobile?.classList.remove('hidden');
+                    lightIconMobile?.classList.add('hidden');
+                }
+            }
+
+            function applySavedTheme() {
+                const storedTheme = localStorage.getItem('color-theme');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+                if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
+                    document.documentElement.classList.add('dark');
+                    updateThemeIcons(true);
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    updateThemeIcons(false);
+                }
+            }
+
+            function toggleTheme() {
+                const isDark = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('color-theme', isDark ? 'dark' : 'light');
+                updateThemeIcons(isDark);
+            }
+
+            applySavedTheme();
+
+            themeToggleDesktop?.addEventListener('click', toggleTheme);
+            themeToggleMobile?.addEventListener('click', toggleTheme);
+
+            // 2. GESTION DU MENU BURGER MOBILE
+            const burgerBtn = document.getElementById('burger-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const burgerIcon = document.getElementById('burger-icon');
+            const closeIcon = document.getElementById('close-icon');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+            function toggleMobileMenu() {
+                const isExpanded = burgerBtn.getAttribute('aria-expanded') === 'true';
+                burgerBtn.setAttribute('aria-expanded', (!isExpanded).toString());
+                
+                mobileMenu.classList.toggle('hidden');
+                burgerIcon.classList.toggle('hidden');
+                closeIcon.classList.toggle('hidden');
+            }
+
+            function closeMobileMenu() {
+                burgerBtn.setAttribute('aria-expanded', 'false');
+                mobileMenu.classList.add('hidden');
+                burgerIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            }
+
+            burgerBtn?.addEventListener('click', toggleMobileMenu);
+
+            // Fermer le menu lors du clic sur un lien
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+
+            // Fermer si ré-agrandissement de l'écran
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768) {
+                    closeMobileMenu();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
